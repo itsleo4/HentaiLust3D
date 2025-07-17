@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Hentai Video</title>
+</head>
+<body>
+    <h1>Upload a Hentai Video</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Video Title" required><br>
+        <textarea name="description" placeholder="Description" required></textarea><br>
+        <input type="text" name="hashtags" placeholder="#tags"><br>
+        <input type="file" name="video" accept="video/*" required><br>
+        <input type="file" name="thumbnail" accept="image/*" required><br>
+        <select name="category">
+            <option value="monster">Monster</option>
+            <option value="futa">Futa</option>
+            <option value="romance">Romance</option>
+            <option value="hardcore">Hardcore</option>
+        </select><br><br>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>
