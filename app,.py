@@ -1,31 +1,47 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-UPLOAD_FOLDER = 'static/uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-@app.route('/upload', methods=['GET', 'POST'])
+# TEMP VIDEO DB (in memory)
+videos_db = []
+
+@app.route("/")
+def home():
+    return render_template("home.html", videos=videos_db)
+
+@app.route("/upload", methods=["GET", "POST"])
 def upload():
-    if request.method == 'POST':
-        title = request.form['title']
-        description = request.form['description']
-        category = request.form['category']
-        hashtags = request.form['hashtags']
-        
-        video = request.files['video']
-        thumbnail = request.files['thumbnail']
+    if request.method == "POST":
+        title = request.form["title"]
+        desc = request.form["description"]
+        hashtags = request.form["hashtags"]
+        category = request.form["category"]
 
-        video_path = os.path.join(UPLOAD_FOLDER, video.filename)
-        thumbnail_path = os.path.join(UPLOAD_FOLDER, thumbnail.filename)
+        video = request.files["video"]
+        thumbnail = request.files["thumbnail"]
 
-        video.save(video_path)
-        thumbnail.save(thumbnail_path)
+        video_name = secure_filename(video.filename)
+        thumb_name = secure_filename(thumbnail.filename)
 
-        return render_template('success.html',
-                               title=title,
-                               description=description,
-                               video_url='/' + video_path,
-                               thumbnail_url='/' + thumbnail_path)
+        video.save(os.path.join(app.config['UPLOAD_FOLDER'], video_name))
+        thumbnail.save(os.path.join(app.config['UPLOAD_FOLDER'], thumb_name))
 
-    return render_template('upload.html')
+        videos_db.append({
+            "title": title,
+            "description": desc,
+            "hashtags": hashtags,
+            "category": category,
+            "video": video_name,
+            "thumbnail": thumb_name
+        })
+
+        return redirect(url_for("home"))
+    
+    return render_template("upload.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
