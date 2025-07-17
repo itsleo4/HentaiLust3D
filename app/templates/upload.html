@@ -1,95 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🎥 Upload Your Hentai Video</title>
-  <style>
-    body {
-      background: #0f0f0f;
-      color: #f0f0f0;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-    .upload-box {
-      background: #1a1a1a;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 0 10px #ff0077;
-      width: 400px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ff0077;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: none;
-      border-radius: 8px;
-      background: #333;
-      color: white;
-    }
-    input[type="file"] {
-      margin-top: 10px;
-      color: white;
-    }
-    button {
-      margin-top: 20px;
-      width: 100%;
-      padding: 12px;
-      background: #ff0077;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    button:hover {
-      background: #ff3399;
-    }
-  </style>
+  <title>Upload Video</title>
 </head>
 <body>
-  <div class="upload-box">
-    <h1>📤 Upload Hentai</h1>
-    <form method="POST" enctype="multipart/form-data">
-      <label>Video Title</label>
-      <input type="text" name="title" placeholder="e.g. Tentacle Trouble">
-
-      <label>Description</label>
-      <textarea name="description" rows="3" placeholder="What’s this scene about?"></textarea>
-
-      <label>#tags</label>
-      <input type="text" name="hashtags" placeholder="#monster #ecchi #romance">
-
-      <label>Category</label>
-      <select name="category">
-        <option value="monster">Monster</option>
-        <option value="school">School</option>
-        <option value="femdom">Femdom</option>
-        <option value="romance">Romance</option>
-      </select>
-
-      <label>Upload Video</label>
-      <input type="file" name="video">
-
-      <label>Thumbnail</label>
-      <input type="file" name="thumbnail">
-
-      <button type="submit">🚀 Upload Now</button>
-    </form>
-  </div>
+  <h1>📤 Upload a New Video</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Video Title" required><br><br>
+    <textarea name="description" placeholder="Description" rows="3"></textarea><br><br>
+    <input type="text" name="hashtags" placeholder="#tags"><br><br>
+    <input type="text" name="category" placeholder="Category"><br><br>
+    <label>Video (mp4):</label>
+    <input type="file" name="video" accept="video/mp4" required><br><br>
+    <label>Thumbnail (jpg/png):</label>
+    <input type="file" name="thumbnail" accept="image/*" required><br><br>
+    <button type="submit">Upload</button>
+  </form>
 </body>
 </html>

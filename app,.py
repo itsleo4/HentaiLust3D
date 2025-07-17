@@ -6,6 +6,11 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'static/videos'
 app.config['THUMB_FOLDER'] = 'static/thumbnails'
 
+# Create folders if they don't exist
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['THUMB_FOLDER'], exist_ok=True)
+
+# In-memory video database
 videos_db = []
 
 @app.route("/")
@@ -40,6 +45,3 @@ def upload():
         return "Video uploaded successfully!"
 
     return render_template("upload.html")
-
-if __name__ == "__main__":
-    app.run(debug=True)

@@ -1,20 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>HentaiLust3D - Home</title>
 </head>
 <body>
-  <h1>🔥 HentaiLust3D Video Hub</h1>
-  {% for video in videos %}
-    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
-      <h2>{{ video.title }}</h2>
-      <img src="{{ url_for('static', filename='thumbnails/' + video.thumbnail) }}" width="200">
-      <p>{{ video.description }}</p>
-      <video width="320" height="240" controls>
-        <source src="{{ url_for('static', filename='videos/' + video.video) }}" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  {% endfor %}
+  <h1>📺 HentaiLust3D - Video List</h1>
+  <a href="/upload">Upload New Video</a>
+  <ul>
+    {% for vid in videos %}
+      <li>
+        <h3>{{ vid.title }}</h3>
+        <img src="{{ url_for('static', filename='thumbnails/' + vid.thumbnail) }}" alt="Thumbnail" width="200"><br>
+        <video width="320" height="240" controls>
+          <source src="{{ url_for('static', filename='videos/' + vid.video) }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p>{{ vid.description }}<br>{{ vid.hashtags }} | {{ vid.category }}</p>
+      </li>
+    {% else %}
+      <p>No videos uploaded yet.</p>
+    {% endfor %}
+  </ul>
 </body>
 </html>
