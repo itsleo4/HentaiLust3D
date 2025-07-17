@@ -1,65 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>HentaiLust3D — Watch Now</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-    }
-    .card {
-      background: #222;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(255, 0, 150, 0.4);
-      transition: 0.3s;
-    }
-    .card:hover {
-      transform: scale(1.03);
-    }
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-    }
-    .info {
-      padding: 15px;
-    }
-    .title {
-      font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    .category {
-      font-size: 12px;
-      color: #aaa;
-    }
-  </style>
+  <title>HentaiLust3D - Home</title>
 </head>
 <body>
-  <h1>🔥 Trending Hentai Videos</h1>
-  <div class="grid">
-    {% for video in videos %}
-      <div class="card">
-        <img src="{{ url_for('static', filename='uploads/' + video.thumbnail) }}" alt="Thumbnail">
-        <div class="info">
-          <div class="title">{{ video.title }}</div>
-          <div class="category">#{{ video.category }}</div>
-        </div>
-      </div>
-    {% endfor %}
-  </div>
+  <h1>🔥 HentaiLust3D Video Hub</h1>
+  {% for video in videos %}
+    <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+      <h2>{{ video.title }}</h2>
+      <img src="{{ url_for('static', filename='thumbnails/' + video.thumbnail) }}" width="200">
+      <p>{{ video.description }}</p>
+      <video width="320" height="240" controls>
+        <source src="{{ url_for('static', filename='videos/' + video.video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  {% endfor %}
 </body>
 </html>
