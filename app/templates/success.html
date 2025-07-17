@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🎉 Upload Successful</title>
+  <style>
+    body {
+      background: #121212;
+      color: #f8f8f8;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 50px;
+    }
+    .card {
+      background: #1f1f1f;
+      padding: 30px;
+      margin: auto;
+      border-radius: 16px;
+      box-shadow: 0 0 20px #ff0077;
+      width: 400px;
+    }
+    img {
+      width: 100%;
+      border-radius: 8px;
+    }
+    h2 {
+      color: #ff0077;
+    }
+    a {
+      display: block;
+      margin-top: 20px;
+      text-decoration: none;
+      background: #ff0077;
+      padding: 12px;
+      color: white;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+    a:hover {
+      background: #ff3399;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>✅ Video Uploaded</h2>
+    <p><strong>{{ title }}</strong></p>
+    <img src="{{ thumbnail_url }}" alt="Thumbnail">
+    <p>{{ description }}</p>
+    <a href="{{ video_url }}">▶️ Watch Video</a>
+  </div>
+</body>
+</html>
