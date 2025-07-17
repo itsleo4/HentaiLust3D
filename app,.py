@@ -1,17 +1,11 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = 'static/videos'
-app.config['THUMB_FOLDER'] = 'static/thumbnails'
+app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-# Create folders if they don't exist
-os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-os.makedirs(app.config['THUMB_FOLDER'], exist_ok=True)
-
-# In-memory video database
-videos_db = []
+videos_db = []  # Temporary in-memory video database
 
 @app.route("/")
 def home():
@@ -24,14 +18,18 @@ def upload():
         desc = request.form["description"]
         hashtags = request.form["hashtags"]
         category = request.form["category"]
+
         video = request.files["video"]
-        thumbnail = request.files["thumbnail"]
+        thumb = request.files["thumbnail"]
 
         video_name = secure_filename(video.filename)
-        thumb_name = secure_filename(thumbnail.filename)
+        thumb_name = secure_filename(thumb.filename)
 
-        video.save(os.path.join(app.config['UPLOAD_FOLDER'], video_name))
-        thumbnail.save(os.path.join(app.config['THUMB_FOLDER'], thumb_name))
+        video_path = os.path.join(app.config['UPLOAD_FOLDER'], video_name)
+        thumb_path = os.path.join(app.config['UPLOAD_FOLDER'], thumb_name)
+
+        video.save(video_path)
+        thumb.save(thumb_path)
 
         videos_db.append({
             "title": title,
@@ -42,6 +40,6 @@ def upload():
             "thumbnail": thumb_name
         })
 
-        return "Video uploaded successfully!"
+        return redirect(url_for("home"))
 
     return render_template("upload.html")

@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>HentaiLust3D - Home</title>
+  <title>📺 Hentai Lust 3D - Videos</title>
 </head>
 <body>
-  <h1>📺 HentaiLust3D - Video List</h1>
-  <a href="/upload">Upload New Video</a>
-  <ul>
-    {% for vid in videos %}
-      <li>
-        <h3>{{ vid.title }}</h3>
-        <img src="{{ url_for('static', filename='thumbnails/' + vid.thumbnail) }}" alt="Thumbnail" width="200"><br>
+  <h1>🔥 Uploaded Videos</h1>
+
+  {% if videos %}
+    {% for video in videos %}
+      <div style="border: 1px solid #ccc; padding: 10px; margin: 10px;">
+        <h3>{{ video.title }}</h3>
+        <p>{{ video.description }}</p>
+        <p><b>Tags:</b> {{ video.hashtags }}</p>
+        <p><b>Category:</b> {{ video.category }}</p>
         <video width="320" height="240" controls>
-          <source src="{{ url_for('static', filename='videos/' + vid.video) }}" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-        <p>{{ vid.description }}<br>{{ vid.hashtags }} | {{ vid.category }}</p>
-      </li>
-    {% else %}
-      <p>No videos uploaded yet.</p>
+          <source src="{{ url_for('static', filename='uploads/' ~ video.video) }}" type="video/mp4">
+        </video><br>
+        <img src="{{ url_for('static', filename='uploads/' ~ video.thumbnail) }}" width="150">
+      </div>
     {% endfor %}
-  </ul>
+  {% else %}
+    <p>No videos uploaded yet.</p>
+  {% endif %}
+
+  <a href="/upload">Upload New Video</a>
 </body>
 </html>
