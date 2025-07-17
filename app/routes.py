@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.utils import secure_filename
 import os
 
+app = Flask(__name__)  # ✅ Moved this up
+
 UPLOAD_FOLDER = 'app/static/uploads/'
 ALLOWED_EXTENSIONS = {'mp4', 'avi', 'mov', 'jpg', 'jpeg', 'png'}
 
